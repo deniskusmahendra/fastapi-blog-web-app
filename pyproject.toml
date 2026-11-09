@@ -7,7 +7,9 @@ authors = [
     { name = "Denis Kusmahendra", email = "deniskusmahendra@gmail.com" }
 ]
 requires-python = ">=3.12"
-dependencies = []
+dependencies = [
+    "fastapi[standard]>=0.162.2",
+]
 
 [project.scripts]
 fastapi-blog-web-app = "fastapi_blog_web_app:main"
