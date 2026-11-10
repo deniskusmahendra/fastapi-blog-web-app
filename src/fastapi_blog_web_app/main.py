@@ -29,4 +29,4 @@ def home(request: Request):
 
 @app.get("/api/posts")
 def get_posts():
-    return post
+    return posts
