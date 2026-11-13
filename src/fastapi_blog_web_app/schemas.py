@@ -1,11 +1,12 @@
 from pydantic import BaseModel, ConfigDict, Field
+from typing import Annotated
 
 
 
 class PostBase(BaseModel):
-    title: str = Field(min_length=1, max_length=100),
-    content: str = Field(min_length=1),
-    author: str = Field(min_length=1, max_length=30)
+    title: Annotated[str, Field(min_length=1, max_length=100)]
+    content: Annotated[str, Field(min_length=1)]
+    author: Annotated[str, Field(min_length=1, max_length=30)]
 
 class PostCreate(PostBase):
     pass
