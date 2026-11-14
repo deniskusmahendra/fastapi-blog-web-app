@@ -22,13 +22,14 @@ class UserResponse(UserBase):
 class PostBase(BaseModel):
     title: Annotated[str, Field(min_length=1, max_length=100)]
     content: Annotated[str, Field(min_length=1)]
-    author: Annotated[str, Field(min_length=1, max_length=30)]
 
 class PostCreate(PostBase):
-    pass
+    user_id: int   # TEMPORARY
 
 class PostResponse(PostBase):
     model_config=ConfigDict(from_attributes=True)
 
     id: int
-    date_posted: str                   
+    user_id: int
+    date_posted: datetime
+    author: UserResponse                   

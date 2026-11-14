@@ -1,15 +1,25 @@
-from fastapi import FastAPI, Request, HTTPException, status
+from typing import Annotated
+
+from fastapi import Depends, FastAPI, HTTPException, Request, status
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
+from sqlalchemy import select
+from sqlalchemy.orm import Session
 from starlette.exceptions import HTTPException as StarletteHTTPException
+
+import fastapi_blog_web_app.models
+from fastapi_blog_web_app.database import Base, engine, get_db
 from fastapi_blog_web_app.schemas import PostCreate, PostResponse
 
+Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
+
+app.mount("/Media", StaticFiles(directory="Media"), name="Media")
 
 templates = Jinja2Templates(directory="templates")
 
