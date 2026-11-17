@@ -51,7 +51,7 @@ async def create_user(user: UserCreate, db: Annotated[AsyncSession, Depends(get_
 
 @router.get("/{user_id}", response_model=UserResponse)
 async def get_user(user_id: int, db: Annotated[AsyncSession, Depends(get_db)]):
-    result = db.execute(
+    result = await db.execute(
             select(models.User).where(models.User.id == user_id)
         )
     user = result.scalars().first()
@@ -124,7 +124,7 @@ async def update_user(user_id: int, user_update: UserUpdate, db: Annotated[Async
 
 @router.delete("/{user_id}", status_code=status.HTTP_204_NO_CONTENT)
 async def delete_user(user_id: int, db: Annotated[AsyncSession, Depends(get_db)]):
-    result = db.execute(select(models.User).where(models.User.id == user_id))
+    result = await db.execute(select(models.User).where(models.User.id == user_id))
     user = result.scalars().first()
     if not user:
         raise HTTPException(

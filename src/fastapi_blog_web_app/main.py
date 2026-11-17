@@ -40,7 +40,7 @@ app.mount("/media", StaticFiles(directory=MEDIA_DIR), name="media")
 templates = Jinja2Templates(directory=BASE_DIR / "templates")
 
 app.include_router(users.router, prefix="/api/users", tags=["users"])
-app.include_router(users.router, prefix="/api/posts", tags=["posts"])
+app.include_router(posts.router, prefix="/api/posts", tags=["posts"])
 
 
 # ====================================================================================
@@ -53,6 +53,7 @@ async def home(request: Request, db: Annotated[AsyncSession, Depends(get_db)]):
         select(models.Post).options(selectinload(models.Post.author))
     )
     posts = result.scalars().all()
+
     return templates.TemplateResponse(
         request, 
         "home.html", 
@@ -75,6 +76,7 @@ async def post_page(request: Request, post_id: int, db: Annotated[AsyncSession, 
             "post.html", 
             context={"post": post, "title": title}
         )
+    
     raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Post not found")
 
 
@@ -93,6 +95,7 @@ async def user_posts_page(request: Request, user_id: int, db: Annotated[AsyncSes
         .options(selectinload(models.Post.author))
         .where(models.Post.user_id == user_id))
     posts = result.scalars().all()
+
     return templates.TemplateResponse(
         request,
         "user_posts.html",
