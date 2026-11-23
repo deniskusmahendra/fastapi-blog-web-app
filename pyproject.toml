@@ -28,3 +28,6 @@ build-backend = "hatchling.build"
 dev = [
     "djlint>=1.49.10",
 ]
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]
