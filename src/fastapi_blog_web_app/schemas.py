@@ -10,7 +10,7 @@ class UserBase(BaseModel):
 
 
 class UserCreate(UserBase):
-    password: Annotated[str, Field(min_length=8)]
+    password: Annotated[str, Field(min_lenghth=8)]
 
 
 class UserPublic(BaseModel):
@@ -46,7 +46,7 @@ class PostBase(BaseModel):
 
 
 class PostCreate(PostBase):
-    user_id: int  # TEMPORARY
+    pass
 
 
 class PostUpdate(BaseModel):
