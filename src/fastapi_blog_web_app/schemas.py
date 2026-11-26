@@ -29,8 +29,7 @@ class UserPrivate(UserPublic):
 class UserUpdate(BaseModel):
     username: Annotated[str | None, Field(default=None, min_length=1, max_length=50)]
     email: Annotated[EmailStr | None, Field(default=None, max_length=120)]
-    image_file: Annotated[str | None, Field(default=None, min_length=1, max_length=200)]
-
+    
 
 class Token(BaseModel):
     access_token: str
@@ -61,3 +60,11 @@ class PostResponse(PostBase):
     user_id: int
     date_posted: datetime
     author: UserPublic
+
+
+class PaginatedPostResponse(BaseModel):
+    posts: list[PostResponse]
+    total: int
+    skip: int
+    limit: int
+    has_more: bool

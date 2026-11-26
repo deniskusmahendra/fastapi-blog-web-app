@@ -10,7 +10,7 @@ from fastapi.exception_handlers import (
 from fastapi.exceptions import RequestValidationError
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
-from sqlalchemy import select
+from sqlalchemy import select, func
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
 from starlette.exceptions import HTTPException as StarletteHTTPException
@@ -19,6 +19,7 @@ import fastapi_blog_web_app.models as models
 from fastapi_blog_web_app.database import Base, engine, get_db
 from fastapi_blog_web_app.routers import posts, users
 
+from fastapi_blog_web_app.config import settings
 
 @asynccontextmanager
 async def lifespan(_app: FastAPI):
@@ -51,6 +52,7 @@ app.include_router(posts.router, prefix="/api/posts", tags=["posts"])
 @app.get("/", include_in_schema=False, name="home")
 @app.get("/posts", include_in_schema=False, name="posts")
 async def home(request: Request, db: Annotated[AsyncSession, Depends(get_db)]):
+    count_result = await db.execute(select(func.count()).selectfrom)
     result = await db.execute(
         select(models.Post)
         .options(selectinload(models.Post.author))
