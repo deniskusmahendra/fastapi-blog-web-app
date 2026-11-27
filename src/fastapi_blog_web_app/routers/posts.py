@@ -10,7 +10,7 @@ from fastapi_blog_web_app.auth import CurrentUser
 from fastapi_blog_web_app.config import settings
 from fastapi_blog_web_app.database import get_db
 from fastapi_blog_web_app.schemas import (
-    PaginatedPostResponse,
+    PaginatedPostsResponse,
     PostCreate,
     PostResponse,
     PostUpdate,
@@ -22,7 +22,7 @@ router = APIRouter()
 # ================================================================================
 
 
-@router.get("", response_model=PaginatedPostResponse)
+@router.get("", response_model=PaginatedPostsResponse)
 async def get_posts(
     db: Annotated[AsyncSession, Depends(get_db)],
     skip: Annotated[int, Query(ge=0)] = 0,
@@ -42,7 +42,7 @@ async def get_posts(
 
     has_more = skip + len(posts) < total
 
-    return PaginatedPostResponse(
+    return PaginatedPostsResponse(
         posts=[PostResponse.model_validate(post) for post in posts],
         total=total,
         skip=skip,
