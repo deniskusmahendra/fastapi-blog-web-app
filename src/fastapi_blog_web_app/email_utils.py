@@ -7,7 +7,6 @@ from fastapi.templating import Jinja2Templates
 from fastapi_blog_web_app.config import settings
 
 BASE_DIR = Path(__file__).resolve().parent
-PASSWORD_RESET_TEMPLATE = BASE_DIR / "templates" / "email" / "password_reset.html"
 
 templates = Jinja2Templates(directory=BASE_DIR / "templates")
 
@@ -42,7 +41,7 @@ async def send_email(
 async def send_password_reset_email(to_email: str, username: str, token: str) -> None:
     reset_url = f"{settings.frontend_url}/reset-password?token={token}"
 
-    template = templates.env.get_template(PASSWORD_RESET_TEMPLATE)
+    template = templates.env.get_template("email/password_reset.html")
     html_content = template.render(reset_url=reset_url, username=username)
 
     plain_text = f"""Hi {username},

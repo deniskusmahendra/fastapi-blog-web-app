@@ -10,16 +10,15 @@ from fastapi.exception_handlers import (
 from fastapi.exceptions import RequestValidationError
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
-from sqlalchemy import select, func
+from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
 import fastapi_blog_web_app.models as models
+from fastapi_blog_web_app.config import settings
 from fastapi_blog_web_app.database import Base, engine, get_db
 from fastapi_blog_web_app.routers import posts, users
-
-from fastapi_blog_web_app.config import settings
 
 
 @asynccontextmanager
@@ -165,6 +164,26 @@ async def account_page(request: Request):
         "account.html",
         {"title": "Account"},
     )
+
+
+@app.get("/forgot-password", include_in_schema=False)
+async def forgot_password_page(request: Request):
+    return templates.TemplateResponse(
+        request,
+        "forgot_password.html",
+        {"title": "Forgot Password"},
+    )
+
+
+@app.get("/reset-password", include_in_schema=False)
+async def reset_password_page(request: Request):
+    response = templates.TemplateResponse(
+        request,
+        "reset_password.html",
+        {"title": "Reset Password"},
+    )
+    response.headers["Referrer-Policy"] = "no-referrer"
+    return response
 
 
 # ======================================================================================

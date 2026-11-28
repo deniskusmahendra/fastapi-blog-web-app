@@ -11,6 +11,7 @@ class Settings(BaseSettings):
     model_config = SettingsConfigDict(
         env_file=ENV_FILE,
         env_file_encoding="utf-8",
+        extra="ignore",
     )
 
     secret_key: SecretStr
@@ -31,6 +32,8 @@ class Settings(BaseSettings):
     mail_use_tls: bool = True
 
     frontend_url: str = "http://localhost:8000"
+
+    database_url: str
 
 
 settings = Settings()  # Loaded from .env file
