@@ -16,7 +16,6 @@
         </div>
         <h2 class="article-title">{{ post.title }}</h2>
         <p class="article-content">{{ post.content }}</p>
-      
         <div id="postActions" class="post-actions mt-3 pt-3 border-top d-none">
           <button type="button"
                   class="btn btn-outline-secondary me-1"
@@ -27,17 +26,15 @@
                   data-bs-toggle="modal"
                   data-bs-target="#deleteModal">Delete Post</button>
         </div>
-
       </div>
     </div>
   </article>
-
   <!-- Edit Post Modal -->
   <div class="modal fade"
-      id="editModal"
-      tabindex="-1"
-      aria-labelledby="editModalLabel"
-      aria-hidden="true">
+       id="editModal"
+       tabindex="-1"
+       aria-labelledby="editModalLabel"
+       aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -53,11 +50,11 @@
             <div class="mb-3">
               <label for="editTitle" class="form-label">Title</label>
               <input type="text"
-                    class="form-control"
-                    id="editTitle"
-                    name="title"
-                    value="{{ post.title }}"
-                    required>
+                     class="form-control"
+                     id="editTitle"
+                     name="title"
+                     value="{{ post.title }}"
+                     required>
             </div>
             <div class="mb-3">
               <label for="editContent" class="form-label">Content</label>
@@ -78,13 +75,12 @@
       </div>
     </div>
   </div>
-
   <!-- Delete Confirmation Modal -->
   <div class="modal fade"
-      id="deleteModal"
-      tabindex="-1"
-      aria-labelledby="deleteModalLabel"
-      aria-hidden="true">
+       id="deleteModal"
+       tabindex="-1"
+       aria-labelledby="deleteModalLabel"
+       aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header bg-danger text-white">
@@ -107,10 +103,9 @@
     </div>
   </div>
 {% endblock content %}
-
 {# post_scripts_block #}
 {% block scripts %}
-<script type="module">
+  <script type="module">
     import { getCurrentUser, getToken } from '/static/js/auth.js';
     import { getErrorMessage, showModal, hideModal } from '/static/js/utils.js';
 
@@ -215,5 +210,5 @@
     });
 
     checkOwnership();
-</script>
+  </script>
 {% endblock scripts %}

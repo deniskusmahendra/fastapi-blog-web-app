@@ -21,6 +21,7 @@ from fastapi_blog_web_app.routers import posts, users
 
 from fastapi_blog_web_app.config import settings
 
+
 @asynccontextmanager
 async def lifespan(_app: FastAPI):
     # Startup
@@ -66,10 +67,10 @@ async def home(request: Request, db: Annotated[AsyncSession, Depends(get_db)]):
     has_more = len(posts) < total
 
     return templates.TemplateResponse(
-        request, 
-        "home.html", 
+        request,
+        "home.html",
         context={
-            "posts": posts, 
+            "posts": posts,
             "title": "Home",
             "limit": settings.posts_per_page,
             "has_more": has_more,
@@ -130,11 +131,11 @@ async def user_posts_page(
         request,
         "user_posts.html",
         {
-            "posts": posts, 
-            "user": user, 
+            "posts": posts,
+            "user": user,
             "title": f"{user.username}'s Posts",
             "limit": settings.posts_per_page,
-            "has_more": has_more
+            "has_more": has_more,
         },
     )
 
@@ -164,6 +165,7 @@ async def account_page(request: Request):
         "account.html",
         {"title": "Account"},
     )
+
 
 # ======================================================================================
 

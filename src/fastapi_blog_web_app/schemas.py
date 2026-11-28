@@ -29,7 +29,7 @@ class UserPrivate(UserPublic):
 class UserUpdate(BaseModel):
     username: Annotated[str | None, Field(default=None, min_length=1, max_length=50)]
     email: Annotated[EmailStr | None, Field(default=None, max_length=120)]
-    
+
 
 class Token(BaseModel):
     access_token: str

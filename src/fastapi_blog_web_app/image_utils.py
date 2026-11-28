@@ -7,6 +7,7 @@ from PIL import Image, ImageOps
 BASE_DIR = Path(__file__).resolve().parent
 PROFILE_PICS_DIR = BASE_DIR / "media" / "profile_pics"
 
+
 ## Process Image Function
 def process_profile_image(content: bytes) -> str:
     with Image.open(BytesIO(content)) as original:
@@ -25,7 +26,6 @@ def process_profile_image(content: bytes) -> str:
         img.save(filepath, "JPEG", quality=85, optimize=True)
 
     return filename
-
 
 
 ## Delete Profile Image Function
