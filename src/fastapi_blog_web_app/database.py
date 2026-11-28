@@ -3,9 +3,7 @@ from sqlalchemy.orm import DeclarativeBase
 
 from fastapi_blog_web_app.config import settings
 
-engine = create_async_engine(
-    settings.database_url, connect_args={"check_same_thread": False}
-)
+engine = create_async_engine(settings.database_url)
 
 AsyncSessionLocal = async_sessionmaker(
     bind=engine, class_=AsyncSession, expire_on_commit=False
